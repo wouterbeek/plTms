@@ -8,8 +8,9 @@ Debug methods for ATMSs.
 @version 2011
 */
 
-:- use_module(atms(atms_db)).
-:- use_module(atms_export).
+:- use_module(plTms(atms/atms_db)).
+:- use_module(plTms(atms/atms_export)).
+
 
 
 test1:-

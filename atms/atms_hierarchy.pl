@@ -8,7 +8,7 @@
 
 :- use_module(library(semweb/rdf_db)).
 
-:- use_module(plRdf(rdf_build)).
+:- use_module(plRdf(api/rdf_build)).
 :- use_module(plRdf(rdfs_label_ext)).
 
 :- rdf_register_prefix(atms, 'http://www.wouterbeek.com/atms#').

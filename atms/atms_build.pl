@@ -37,13 +37,13 @@
 ATMS build methods.
 
 @author Wouter Beek
-@version Aug 2012
+@version 2012/08
 */
 
-:- use_module(atms(atms_api)).
-:- use_module(atms(atms_db)).
-:- use_module(ile(agent)).
-:- use_module(plRdf(rdf_build)).
+:- use_module(library(semweb/rdf_db)).
+
+:- use_module(plTms(atms/atms_api)).
+:- use_module(plTms(atms/atms_db)).
 
 
 

@@ -77,17 +77,17 @@ De Kleer 1993 book 'Building Problem Solvers'.
 @version 2011/11-2012/01, 2012/08, 2014/03
 */
 
-:- use_module(atms(atms_api)).
-:- use_module(atms(atms_build)).
-:- use_module(atms(atms_hierarchy)). % XML namespace.
-:- use_module(atms(atms_env)).
-:- use_module(atms(atms_update)).
 :- use_module(library(aggregate)).
 :- use_module(library(debug)).
 :- use_module(library(semweb/rdf_db)).
-:- use_module(plRdf(rdf_build)).
-:- use_module(plRdf(rdf_read)).
-:- use_module(plRdf_term(rdf_boolean)).
+
+:- use_module(plRdf(api/rdf_build)).
+:- use_module(plRdf(term/rdf_boolean)).
+
+:- use_module(plTms(atms/atms_api)).
+:- use_module(plTms(atms/atms_build)).
+:- use_module(plTms(atms/atms_env)).
+:- use_module(plTms(atms/atms_update)).
 
 :- dynamic(has_label/3).
 
@@ -133,7 +133,7 @@ atms_remove_node(ATMS, Node):-
   rdf_retractall(ATMS, atms:has_contradiction_node, Node, ccm),
   rdf_retractall(ATMS, atms:has_node, Node, ccm),
   rdf_retractall(ATMS, atms:has_nogood, Node, ccm),
-  
+
   findall(
     AffectedEnvironment,
     environment_node(AffectedEnvironment, Node),
@@ -143,7 +143,7 @@ atms_remove_node(ATMS, Node):-
     member(AffectedEnvironment, AffectedEnvironments),
     environment_remove_node(AffectedEnvironment, Node)
   ),
-  
+
   findall(
     JustificationHasAntecedent,
     justification_antecedent(JustificationHasAntecedent, Node),
@@ -164,7 +164,7 @@ atms_remove_node(ATMS, Node):-
     member(JustificationHasConsequence, JustificationHasConsequences),
     remove_consequence(JustificationHasConsequence, Node)
   ),
-  
+
   % Remove the node resource.
   remove_node(Node).
 

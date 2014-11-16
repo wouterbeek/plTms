@@ -49,13 +49,10 @@ and the GDE (component assumptions).
 :- use_module(library(apply)).
 :- use_module(library(lists), except([delete/3])).
 
-:- use_module(atms(atms_api)).
-:- use_module(atms(atms_build)).
-:- use_module(ccm(ccm_unpack)).
-:- use_module(diagnosis(diagnosis)).
 :- use_module(generics(list_ext)).
-:- use_module(generics(meta_ext)).
-:- use_module(ile(agent)).
+
+:- use_module(plTms(atms/atms_api)).
+:- use_module(plTms(atms/atms_build)).
 
 :- use_module(plSet(set_theory)).
 

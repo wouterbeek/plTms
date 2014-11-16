@@ -35,9 +35,9 @@ are a strict superset of the assumptions in any of the other members of
 :- use_module(library(aggregate)).
 :- use_module(library(debug)).
 
-:- use_module(atms(atms_api)).
-:- use_module(atms(atms_db)).
-:- use_module(atms(atms_env)).
+:- use_module(plTms(atms/atms_api)).
+:- use_module(plTms(atms/atms_db)).
+:- use_module(plTms(atms/atms_env)).
 
 
 

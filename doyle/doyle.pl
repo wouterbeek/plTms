@@ -149,10 +149,10 @@ Only SL-justifications can be well-founded justifications.
 
 :- use_module(plSet(set_theory)).
 
-:- use_module(plRdf(rdf_build)).
+:- use_module(plRdf(api/rdf_build)).
 :- use_module(plRdf(rdf_name)).
-:- use_module(plRdf(rdf_read)).
-:- use_module(plRdf(rdfs_build)).
+:- use_module(plRdf(api/rdf_read)).
+:- use_module(plRdf(api/rdfs_build)).
 :- use_module(plRdf(rdfs_label_ext)).
 :- use_module(plRdf_rei(rdf_reification_read)).
 :- use_module(plRdf_rei(rdf_reification_write)).

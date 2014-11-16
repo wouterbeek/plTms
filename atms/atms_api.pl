@@ -144,15 +144,13 @@ The API for ATMSs.
 :- use_module(library(semweb/rdf_db)).
 :- use_module(library(semweb/rdfs)).
 
-:- use_module(atms(atms_db)).
-:- use_module(atms(atms_env)).
-:- use_module(atms(atms_hierarchy)). % XML namespace.
+:- use_module(plTms(atms/atms_db)).
+:- use_module(plTms(atms/atms_env)).
 
-:- use_module(plRdf(rdf_read)).
-:- use_module(plRdf(rdfs_read)).
-:- use_module(plRdf_term(rdf_boolean)).
-:- use_module(plRdf_term(rdf_datatype)).
-:- use_module(plRdf_term(rdf_string)).
+:- use_module(plRdf(api/rdfs_read)).
+:- use_module(plRdf(term/rdf_boolean)).
+:- use_module(plRdf(term/rdf_datatype)).
+:- use_module(plRdf(term/rdf_string)).
 
 
 
