@@ -6,7 +6,15 @@
 
 :- use_module(load_project).
 :- load_project([
-  plc-'Prolog-Library-Collection',
-  plRdf
+     plc-'Prolog-Library-Collection',
+     plDcg,
+     plGraph,
+     plHttp,
+     plRdf,
+     plSet,
+     plTree,
+     plUri,
+     plXml,
+     plXsd
 ]).
 

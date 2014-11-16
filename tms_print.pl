@@ -24,7 +24,8 @@ Support for printing (aspects of) a TMS.
 :- use_module(library(semweb/rdf_db)).
 
 :- use_module(generics(option_ext)).
-:- use_module(tms(tms)).
+
+:- use_module(plTms(tms)).
 
 :- use_module(plDcg(dcg_abnf)).
 :- use_module(plDcg(dcg_ascii)).
@@ -32,6 +33,8 @@ Support for printing (aspects of) a TMS.
 :- use_module(plDcg(dcg_generics)).
 
 :- use_module(plRdf(rdfs_label_ext)).
+
+:- use_module(plTms(tms)).
 
 :- rdf_register_prefix(tms, 'http://www.wouterbeek.com/tms.owl#').
 

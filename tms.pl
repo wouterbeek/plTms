@@ -68,6 +68,8 @@ The generic predicates for Truth-Maintenance Systems.
 
 :- rdf_register_prefix(tms, 'http://www.wouterbeek.com/tms.owl#').
 
+:- meta_predicate(matching(2,+,+)).
+
 :- rdf_meta(tms_create_justification_iri(+,+,+,r,-)).
 :- rdf_meta(tms_justification(?,r)).
 :- rdf_meta(tms_justification(?,?,?,r,r)).
@@ -122,7 +124,7 @@ tms_justification(TMS, Premises, Rule, rdf(S,P,O)):-
   rdf_statement(S, P, O, TMS, Consequent),
   tms_justification(TMS, Antecedents, Rule, Consequent, _Justification),
   matching(rdf_statement(TMS), Premises, Antecedents).
-:- meta_predicate(matching(2,+,+)).
+
 matching(_Pred, [], []).
 matching(Pred, [H1|T], L1):-
   call(Pred, H1, H2),
