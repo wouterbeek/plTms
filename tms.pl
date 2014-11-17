@@ -58,7 +58,8 @@ The generic predicates for Truth-Maintenance Systems.
 
 :- use_module(generics(db_ext)).
 :- use_module(generics(meta_ext)).
-:- use_module(generics(uri_query)).
+
+:- use_module(plUri(uri_query)).
 
 :- use_module(plRdf(rdf_search)).
 :- use_module(plRdf(api/rdfs_build)).

@@ -62,26 +62,26 @@
     zero_environment/1, % ?ZeroEnvironment:environment
 
 % JUSTIFICATIONS
-    justification/1, % ?Justification:justification
+    justification/1, % ?J:justification
     justification/2, % ?ATMS:atms
-                     % ?Justification:justification
+                     % ?J:justification
     justification/4, % +Informant:object
                      % +Consequence:node
                      % +Antecedents:ord_set(node)
-                     % -Justification:justification
-    justification_antecedent/2, % ?Justification:justification
+                     % -J:justification
+    justification_antecedent/2, % ?J:justification
                                 % ?Antecedent:node
-    justification_consequence/2, % ?Justification:justification
+    justification_consequence/2, % ?J:justification
                                  % ?Consequence:node
-    justification_id/2, % +Justification:justification
+    justification_id/2, % +J:justification
                         % -JustificationBareID:number
-    justification_informant/2, % ?Justification:justification
+    justification_informant/2, % ?J:justification
                                % ?Informant:atom
-    justification_label/2, % ?Justification:justification
+    justification_label/2, % ?J:justification
                            % ?JustificationLabel:atom
-    justification_to_antecedents/2, % +Justification:justification
+    justification_to_antecedents/2, % +J:justification
                                     % -Antecedents:ord_set(node)
-    justification_to_dot_name/2, % +Justification:justification
+    justification_to_dot_name/2, % +J:justification
                                  % -JustificationDOTName:atom
     justifications/1, % -Justifications:ord_set(justification)
 
@@ -113,7 +113,7 @@
     node_id/2, % ?Node:node
                % ?NodeID:atom
     node_justification/2, % ?Node:node
-                          % ?Justification:justification
+                          % ?J:justification
     node_label/2, % ?Node:node
                   % ?Label:atom
     node_to_ccm_label/2, % +Node:node
@@ -148,9 +148,7 @@ The API for ATMSs.
 :- use_module(plTms(atms/atms_env)).
 
 :- use_module(plRdf(api/rdfs_read)).
-:- use_module(plRdf(term/rdf_boolean)).
 :- use_module(plRdf(term/rdf_datatype)).
-:- use_module(plRdf(term/rdf_string)).
 
 
 
@@ -287,8 +285,8 @@ atms_to_environments(ATMS, Environments):-
 
 atms_to_justifications(ATMS, Justifications):-
   aggregate_all(
-    set(Justification),
-    justification(ATMS, Justification),
+    set(J),
+    justification(ATMS, J),
     Justifications
   ).
 
@@ -524,60 +522,59 @@ zero_environment(ZeroEnvironment):-
 
 % JUSTIFICATIONS %
 
-justification(Justification):-
-  rdfs_individual_of(Justification, justification:justification).
+justification(J):-
+  rdfs_individual_of(J, justification:justification).
 
-%% justification(?ATMS:atms, ?Justification:justification) is nondet.
+%% justification(?ATMS:atms, ?J:justification) is nondet.
 % Pairs of an ATMS and one of its justifications.
 %
 % @arg ATMS An ATMS.
-% @arg Justification A justification.
+% @arg J A justification.
 
-justification(ATMS, Justification):-
-  rdf(ATMS, atms:has_justification, Justification, ccm).
+justification(ATMS, J):-
+  rdf(ATMS, atms:has_justification, J, ccm).
 
-justification(Informant, Consequence, Antecedents, Justification):-
-  node_justification(Consequence, Justification),
-  justification_to_antecedents(Justification, Antecedents),
-  justification_informant(Justification, Informant).
+justification(Informant, Consequence, Antecedents, J):-
+  node_justification(Consequence, J),
+  justification_to_antecedents(J, Antecedents),
+  justification_informant(J, Informant).
 
-justification_antecedent(Justification, Antecedent):-
-  rdf(Justification, justification:has_antecedent, Antecedent, ccm).
+justification_antecedent(J, Antecedent):-
+  rdf(J, justification:has_antecedent, Antecedent, ccm).
 
-justification_consequence(Justification, Consequence):-
-  rdf(Justification, justification:has_consequence, Consequence, ccm).
+justification_consequence(J, Consequence):-
+  rdf(J, justification:has_consequence, Consequence, ccm).
 
-justification_id(Justification, JustificationID):-
-  nonvar(Justification), !,
-  justification_id_(Justification, JustificationID), !.
-justification_id(Justification, JustificationID):-
-  justification_id_(Justification, JustificationID).
+justification_id(J, JId):-
+  nonvar(J), !,
+  justification_id_(J, JId), !.
+justification_id(J, JId):-
+  justification_id_(J, JId).
 
-justification_id_(Justification, JustificationID):-
-  rdf_datatype(Justification, justification:has_id, JustificationID,
-      xsd:integer, ccm).
+justification_id_(J, JId):-
+  rdf_literal(J, justification:has_id, JId, xsd:integer, _, ccm).
 
-justification_informant(Justification, Informant):-
-  rdf_string(Justification, justification:has_informant, Informant, ccm).
+justification_informant(J, Informant):-
+  rdf_literal(J, justification:has_informant, Informant, xsd:string, _, ccm).
 
-justification_label(Justification, LanguageLabel):-
-  rdfs_label(Justification, LanguageLabel).
+justification_label(J, LanguageLabel):-
+  rdfs_label(J, LanguageLabel).
 
-justification_to_antecedents(Justification, Antecedents):-
+justification_to_antecedents(J, Antecedents):-
   aggregate_all(
     set(Antecedent),
-    justification_antecedent(Justification, Antecedent),
+    justification_antecedent(J, Antecedent),
     Antecedents
   ).
 
-justification_to_dot_name(Justification, JustificationDOTName):-
-  justification_id(Justification, JustificationID),
-  atomic_concat('j_', JustificationID, JustificationDOTName).
+justification_to_dot_name(J, JustificationDOTName):-
+  justification_id(J, JId),
+  atomic_concat('j_', JId, JustificationDOTName).
 
 justifications(Justifications):-
   aggregate_all(
-    set(Justification),
-    justification(Justification),
+    set(J),
+    justification(J),
     Justifications
   ).
 
@@ -741,8 +738,8 @@ node_id_(Datum, DatumID):-
   component_cloud_id(Datum, DatumID).
 node_id_(Datum, Datum).
 
-node_justification(Node, Justification):-
-  rdf(Node, node:has_justification, Justification, ccm).
+node_justification(Node, J):-
+  rdf(Node, node:has_justification, J, ccm).
 
 node_label(Node, Label):-
   node_datum(Node, Datum),
@@ -814,8 +811,8 @@ node_to_dot_name_(Datum, Datum).
 
 node_to_justifications(Node, Justifications):-
   aggregate_all(
-    set(Justification),
-    node_justification(Node, Justification),
+    set(J),
+    node_justification(Node, J),
     Justifications
   ).
 

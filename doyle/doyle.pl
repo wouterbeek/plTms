@@ -138,31 +138,30 @@ Only SL-justifications can be well-founded justifications.
 
 :- use_module(library(aggregate)).
 :- use_module(library(apply)).
-:- use_module(library(lists), except([subset/2])).
+:- use_module(library(lists), except([delete/3,subset/2])).
 :- use_module(library(semweb/rdf_db)).
 :- use_module(library(semweb/rdfs)).
 
 :- use_module(pl(pl_control)).
-:- use_module(tms(tms)).
 
 :- use_module(plDcg(dcg_generics)).
 
 :- use_module(plSet(set_theory)).
 
-:- use_module(plRdf(api/rdf_build)).
 :- use_module(plRdf(rdf_name)).
+:- use_module(plRdf(api/rdf_build)).
 :- use_module(plRdf(api/rdf_read)).
 :- use_module(plRdf(api/rdfs_build)).
-:- use_module(plRdf(rdfs_label_ext)).
-:- use_module(plRdf_rei(rdf_reification_read)).
-:- use_module(plRdf_rei(rdf_reification_write)).
-:- use_module(plRdf_term(rdf_datatype)).
-:- use_module(plRdf_term(rdf_literal)).
-:- use_module(plRdf_term(rdf_string)).
+:- use_module(plRdf(api/rdfs_read)).
+:- use_module(plRdf(reification/rdf_reification_read)).
+:- use_module(plRdf(reification/rdf_reification_write)).
+:- use_module(plRdf(term/rdf_datatype)).
+:- use_module(plRdf(term/rdf_literal)).
+
+:- use_module(plTms(tms)).
 
 :- rdf_register_prefix(doyle, 'http://www.wouterbeek.com/doyle.owl#').
 :- rdf_register_prefix(tms, 'http://www.wouterbeek.com/tms.owl#').
-:- rdf_register_prefix(xsd, 'http://www.w3.org/2001/XMLSchema#').
 
 :- dynamic(cp_consequence/2).
 
@@ -206,7 +205,7 @@ doyle_add_justification(Tms, InNs, OutNs, Label, Consequence, J):-
   ;
     % @tbd For now we only support SL-justifications.
     rdf_assert_instance(J, doyle:'SL-Justification', Tms),
-    rdfs_assert_label(J, Label, Tms),
+    rdfs_assert_label(J, Label,	 Tms),
 
     % Add the new justification to the node's justification-set.
     add_justification(Tms, Consequence, J),
@@ -403,19 +402,19 @@ add_justification(Tms, Node, J):-
 doyle_add_node(Tms, rdf(S,P,O), N):- !,
   % Create an atomic label.
   dcg_with_output_to(atom(Label), rdf_triple_name(rdf(S,P,O))),
-  
+
   % Use the atomic label to determine the node URL.
   tms_create_node_iri(Label, N),
-  
+
   % Create the TMS node as a reified statement.
   rdf_assert_statement(rdf(S,P,O), Tms, N),
-  
+
   % @tbd Should we unify `tms:Node` and `rdf:Statement`?
   rdf_assert_instance(N, tms:'Node', Tms),
-  
+
   % Assert the RDFS label.
   rdfs_assert_label(N, Label, Tms),
-  
+
   % Set the default TMS node status.
   set_support_status(Tms, N, out).
 doyle_add_node(Tms, Label, N):-
@@ -753,7 +752,7 @@ sl_justification(SL_Justification):-
 
 support_status(Node, SupportStatus):-
   is_node(Node),
-  rdf_string(Node, doyle:has_support_status, SupportStatus, _).
+  rdf_literal(Node, doyle:has_support_status, SupportStatus, xsd:string, _, _).
 
 %! supporting_nodes(+Node:iri, -SupportingNodes:ordset(node)) is det.
 
