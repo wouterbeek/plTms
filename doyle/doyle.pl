@@ -683,7 +683,7 @@ set_support_status(Tms, Node, SupportStatus):-
   is_node(Node),
   memberchk(SupportStatus, [in,nil,out]),
   rdf_retractall_string(Node, doyle:has_support_status, _, Tms),
-  rdf_assert_string(Node, doyle:has_support_status, SupportStatus, Tms).
+  rdf_assert_typed_literal(Node, doyle:has_support_status, SupportStatus, xsd:string, Tms).
 
 %! set_supporting_justification(
 %!   +Tms:atom,

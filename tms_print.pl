@@ -25,14 +25,16 @@ Support for printing (aspects of) a TMS.
 
 :- use_module(generics(option_ext)).
 
-:- use_module(plTms(tms)).
-
 :- use_module(plDcg(dcg_abnf)).
 :- use_module(plDcg(dcg_ascii)).
+:- use_module(plDcg(dcg_atom)).
+:- use_module(plDcg(dcg_bracket)).
 :- use_module(plDcg(dcg_content)).
 :- use_module(plDcg(dcg_generics)).
 
 :- use_module(plTms(tms)).
+
+:- use_module(plRdf(api/rdfs_read)).
 
 :- rdf_register_prefix(tms, 'http://www.wouterbeek.com/tms.owl#').
 
@@ -155,7 +157,7 @@ tms_print_node0(Node, Options1) -->
   indent(I),
   {
     option(language_preferences(LanguageTags), Options1, [en]),
-    rdfs_preferred_label(LanguageTags, Node, PreferredLabel, _, _)
+    rdfs_label(Node, PreferredLabel, LanguageTags, _)
   },
   atom(PreferredLabel),
   nl.

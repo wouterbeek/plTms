@@ -63,7 +63,7 @@ The generic predicates for Truth-Maintenance Systems.
 
 :- use_module(plRdf(rdf_search)).
 :- use_module(plRdf(api/rdfs_build)).
-:- use_module(plRdf_rei(rdf_reification_read)).
+:- use_module(plRdf(reification/rdf_reification_read)).
 
 :- dynamic(tms/2).
 
