@@ -11,9 +11,8 @@ Web-interface to Doyle's TMS.
 :- use_module(library(http/html_write)).
 :- use_module(library(http/http_dispatch)).
 
-:- use_module(doyle(doyle)).
-:- use_module(generics(db_ext)).
-:- use_module(tms(tms)).
+:- use_module(plTms(doyle/doyle)).
+:- use_module(plTms(tms)).
 
 :- use_module(plHtml(html_table)).
 
@@ -55,7 +54,7 @@ doyle_web(_Request):-
     ),
     Rows
   ),
-  
+
   % Assemble the contents of the header row.
   HeaderRow = [
       'Node',
@@ -70,7 +69,7 @@ doyle_web(_Request):-
       'Believed consequences',
       'Repercussions',
       'Believed repercussions'],
-  
+
   reply_html_page(
     plServer_style,
     title('Doyle'),

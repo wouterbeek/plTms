@@ -40,7 +40,7 @@ ATMS build methods.
 @version 2012/08
 */
 
-:- use_module(library(semweb/rdf_db)).
+:- use_module(library(semweb/rdf_db), except([rdf_node/1])).
 
 :- use_module(plTms(atms/atms_api)).
 :- use_module(plTms(atms/atms_db)).

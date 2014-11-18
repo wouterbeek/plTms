@@ -79,10 +79,9 @@ De Kleer 1993 book 'Building Problem Solvers'.
 
 :- use_module(library(aggregate)).
 :- use_module(library(debug)).
-:- use_module(library(semweb/rdf_db)).
+:- use_module(library(semweb/rdf_db), except([rdf_node/1])).
 
 :- use_module(plRdf(api/rdf_build)).
-:- use_module(plRdf(term/rdf_boolean)).
 
 :- use_module(plTms(atms/atms_api)).
 :- use_module(plTms(atms/atms_build)).

@@ -21,7 +21,7 @@ Support for printing (aspects of) a TMS.
 :- use_module(library(aggregate)).
 :- use_module(library(apply)).
 :- use_module(library(option)).
-:- use_module(library(semweb/rdf_db)).
+:- use_module(library(semweb/rdf_db), except([rdf_node/1])).
 
 :- use_module(generics(option_ext)).
 
@@ -31,8 +31,6 @@ Support for printing (aspects of) a TMS.
 :- use_module(plDcg(dcg_ascii)).
 :- use_module(plDcg(dcg_content)).
 :- use_module(plDcg(dcg_generics)).
-
-:- use_module(plRdf(rdfs_label_ext)).
 
 :- use_module(plTms(tms)).
 

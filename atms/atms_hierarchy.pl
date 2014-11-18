@@ -6,10 +6,10 @@
 @version 2011/12, 2012/03, 2014/03
 */
 
-:- use_module(library(semweb/rdf_db)).
+:- use_module(library(semweb/rdf_db), except([rdf_node/1])).
 
 :- use_module(plRdf(api/rdf_build)).
-:- use_module(plRdf(rdfs_label_ext)).
+:- use_module(plRdf(api/rdfs_build)).
 
 :- rdf_register_prefix(atms, 'http://www.wouterbeek.com/atms#').
 :- rdf_register_prefix(environment, 'http://www.wouterbeek.com/environment#').
