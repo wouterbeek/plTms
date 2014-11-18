@@ -11,10 +11,7 @@
 :- use_module(plRdf(api/rdf_build)).
 :- use_module(plRdf(api/rdfs_build)).
 
-:- rdf_register_prefix(atms, 'http://www.wouterbeek.com/atms#').
-:- rdf_register_prefix(environment, 'http://www.wouterbeek.com/environment#').
-:- rdf_register_prefix(justification, 'http://www.wouterbeek.com/justification#').
-:- rdf_register_prefix(node, 'http://www.wouterbeek.com/node#').
+:- use_module(plTms(atms/atms_db)).
 
 
 

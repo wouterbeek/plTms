@@ -90,6 +90,11 @@ De Kleer 1993 book 'Building Problem Solvers'.
 
 :- dynamic(has_label/3).
 
+:- rdf_register_prefix(atms, 'http://www.wouterbeek.com/atms#').
+:- rdf_register_prefix(environment, 'http://www.wouterbeek.com/environment#').
+:- rdf_register_prefix(justification, 'http://www.wouterbeek.com/justification#').
+:- rdf_register_prefix(node, 'http://www.wouterbeek.com/node#').
+
 
 
 % ATMSS %
