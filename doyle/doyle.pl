@@ -672,12 +672,11 @@ set_support_status(Tms, Node, SupportStatus):-
   rdf_graph(Tms),
   is_node(Node),
   memberchk(SupportStatus, [in,nil,out]),
-  rdf_retractall_literal(Node, doyle:has_support_status, _, xsd:string, Tms),
-  rdf_assert_typed_literal(
+  rdf_retractall_simple_literal(Node, doyle:has_support_status, _, Tms),
+  rdf_assert_simple_literal(
     Node,
     doyle:has_support_status,
     SupportStatus,
-    xsd:string,
     Tms
   ).
 
@@ -714,29 +713,23 @@ set_supporting_nodes(Tms, Validity, Node, J):-
   rdf_retractall(Node, doyle:has_supporting_node, _, Tms),
 
   % Depening on validity
-  (
-    Validity == valid
-  ->
-    forall(
+  (   Validity == valid
+  ->  forall(
+        rdf(J, tms:has_in, In, Tms),
+        add_supporting_node(Tms, Node, In)
+      ),
+      forall(
+        rdf(J, tms:has_out, Out, Tms),
+        add_supporting_node(Tms, Node, Out)
+      )
+  ;   Validity == invalid,
       rdf(J, tms:has_in, In, Tms),
-      add_supporting_node(Tms, Node, In)
-    ),
-    forall(
+      doyle_is_out_node(In)
+  ->  add_supporting_node(Tms, Node, In)
+  ;   Validity == invalid,
       rdf(J, tms:has_out, Out, Tms),
-      add_supporting_node(Tms, Node, Out)
-    )
-  ;
-    Validity == invalid,
-    rdf(J, tms:has_in, In, Tms),
-    doyle_is_out_node(In)
-  ->
-    add_supporting_node(Tms, Node, In)
-  ;
-    Validity == invalid,
-    rdf(J, tms:has_out, Out, Tms),
-    doyle_is_in_node(Out)
-  ->
-    add_supporting_node(Tms, Node, Out)
+      doyle_is_in_node(Out)
+  ->  add_supporting_node(Tms, Node, Out)
   ).
 
 %! sl_justification(?SL_Justification:iri) is nondet.
@@ -748,7 +741,7 @@ sl_justification(SL_Justification):-
 
 support_status(Node, SupportStatus):-
   is_node(Node),
-  rdf_literal(Node, doyle:has_support_status, SupportStatus, xsd:string, _, _).
+  rdf_simple_literal(Node, doyle:has_support_status, SupportStatus, _).
 
 %! supporting_nodes(+Node:iri, -SupportingNodes:ordset(node)) is det.
 
