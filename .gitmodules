@@ -28,3 +28,6 @@
 [submodule "plXsd"]
 	path = plXsd
 	url = https://github.com/wouterbeek/plXsd.git
+[submodule "plLangTag"]
+	path = plLangTag
+	url = https://github.com/wouterbeek/plLangTag.git

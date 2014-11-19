@@ -10,6 +10,7 @@
      plDcg,
      plGraph,
      plHttp,
+     plLangTag,
      plRdf,
      plSet,
      plTree,
