@@ -198,72 +198,62 @@ doyle_add_justification(Tms, InNs, OutNs, Label, Consequence, J):-
 
   % Create the justification.
   tms_create_justification_iri(InNs, OutNs, Label, Consequence, J),
-  (
-    tms_justification(Tms, J)
-  ->
-    true
-  ;
-    % @tbd For now we only support SL-justifications.
-    rdf_assert_instance(J, doyle:'SL-Justification', Tms),
-    rdfs_assert_label(J, Label,	 Tms),
-
-    % Add the new justification to the node's justification-set.
-    add_justification(Tms, Consequence, J),
-
-    % Add the node to the set of consequences of each of the nodes mentioned
-    % in the justification.
-    forall(
-      member(In, InNs),
-      (
-        add_consequence(Tms, In, Consequence),
-        rdf_assert(J, tms:has_in, In, Tms)
-      )
-    ),
-    forall(
-      member(Out, OutNs),
-      (
-        add_consequence(Tms, Out, Consequence),
-        rdf_assert(J, tms:has_out, Out, Tms)
-      )
-    ),
-
-    % If the justification is a CP-justification, add the node to the
-    % CP-consequenct-list of the consequence of the CP-Justification,
-    % for use in step 6.
-    % @tbd Add CP-justification support.
-    if_then(
-      is_cp_justification(J),
-      assert(cp_consequence(Tms, J))
-    ),
-
-    % If the node is _out_, check the justification for validity.
-    (
-      doyle_is_in_node(Consequence)
-    ->
-      true
-    ;
-      doyle_is_out_node(Consequence)
-    ->
-      (
-        is_valid(J)
-      ->
-        % If valid, proceed to step 2.
-        update_belief(Tms, J, Consequence)
-      ;
-        % If invalid, add to the supporting-nodes either an _out_node
-        % from the _in_list, or an _in_ node from the _out_list.
-        % @tbd Are we supposed to retract over this?
+  (   tms_justification(Tms, J)
+  ->  true
+  ;   % @tbd For now we only support SL-justifications.
+      rdf_assert_instance(J, doyle:'SL-Justification', Tms),
+      rdfs_assert_label(J, Label,	 Tms),
+      
+      % Add the new justification to the node's justification-set.
+      add_justification(Tms, Consequence, J),
+      
+      % Add the node to the set of consequences of each of the nodes mentioned
+      % in the justification.
+      forall(
+        member(In, InNs),
         (
-          member(In, InNs),
-          doyle_is_out_node(In),
-          add_supporting_node(Tms, Consequence, In)
+          add_consequence(Tms, In, Consequence),
+          rdf_assert(J, tms:has_in, In, Tms)
+        )
+      ),
+      forall(
+        member(Out, OutNs),
+        (
+          add_consequence(Tms, Out, Consequence),
+          rdf_assert(J, tms:has_out, Out, Tms)
+        )
+      ),
+      
+      % If the justification is a CP-justification, add the node to the
+      % CP-consequenct-list of the consequence of the CP-Justification,
+      % for use in step 6.
+      % @tbd Add CP-justification support.
+      if_then(
+        is_cp_justification(J),
+        assert(cp_consequence(Tms, J))
+      ),
+  
+      % If the node is _out_, check the justification for validity.
+      (   doyle_is_in_node(Consequence)
+      ->  true
+      ;   doyle_is_out_node(Consequence)
+      ->
+        (   is_valid(J)
+        ->  % If valid, proceed to step 2.
+            update_belief(Tms, J, Consequence)
         ;
-          member(Out, OutNs),
-          doyle_is_in_node(Out),
-          add_supporting_node(Tms, Consequence, Out)
-        ), !
+          % If invalid, add to the supporting-nodes either an _out_node
+          % from the _in_list, or an _in_ node from the _out_list.
+          % @tbd Are we supposed to retract over this?
+          (   member(In, InNs),
+              doyle_is_out_node(In),
+              add_supporting_node(Tms, Consequence, In)
+          ;   member(Out, OutNs),
+              doyle_is_in_node(Out),
+              add_supporting_node(Tms, Consequence, Out)
+          ), !
+        )
       )
-    )
   ).
 
 %! update_belief(+Tms:atom, +Justification:iri, +Node:iri) is det.
