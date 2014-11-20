@@ -63,6 +63,7 @@ The generic predicates for Truth-Maintenance Systems.
 
 :- use_module(plRdf(rdf_search)).
 :- use_module(plRdf(api/rdfs_build)).
+:- use_module(plRdf(api/rdfs_read)).
 :- use_module(plRdf(reification/rdf_reification_read)).
 
 :- dynamic(tms/2).
@@ -155,7 +156,7 @@ rdf_statement(G, rdf(S,P,O), Stmt):-
 tms_justification(TMS, As, R, C, J):-
   tms_justification(TMS, J),
   findall(A, rdf_has(J, tms:has_antecedent, A), As),
-  rdfs_label(J, R),
+  rdfs_label(J, R, _, _),
   rdf(J, tms:has_consequent, C, TMS).
 
 %! tms_justifications(
