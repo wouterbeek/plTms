@@ -65,9 +65,9 @@ Support for printing (aspects of) a TMS.
 %!   +Options:list(nvpair)
 %! )// is det.
 % The following options are supported:
-%   * =|indent(+nonneg)|=
+%   - `indent(+nonneg)`
 %     Default: `0`.
-%   * =|language_preferences(+LanguageTags:list(atom))|=
+%   - `language_preferences(+LanguageTags:list(atom))`
 %     Default: `[en]`.
 
 tms_print_justification(Tms, Justification, Options1) -->
@@ -122,9 +122,9 @@ tms_print_justifications(Tms, [H|T], Options) -->
 % Multiple justifications for the same consequence are printed.
 %
 % The following options are supported:
-%   * =|indent(+nonneg)|=
+%   - `indent(+nonneg)`
 %     Default: `0`.
-%   * =|language_preferences(+LanguageTags:list(atom))|=
+%   - `language_preferences(+LanguageTags:list(atom))`
 %     Default: `[en]`.
 
 % Print upstream justifications (NONDET).
