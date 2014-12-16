@@ -157,7 +157,7 @@ tms_print_node0(Node, Options1) -->
   indent(I),
   {
     option(language_preferences(LanguageTags), Options1, [en]),
-    rdfs_label(Node, PreferredLabel, LanguageTags, _)
+    rdfs_label_value(Node, PreferredLabel, LanguageTags, _)
   },
   atom(PreferredLabel),
   nl.
