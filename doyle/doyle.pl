@@ -202,7 +202,7 @@ doyle_add_justification(Tms, InNs, OutNs, Label, Consequence, J):-
   ->  true
   ;   % @tbd For now we only support SL-justifications.
       rdf_assert_instance(J, doyle:'SL-Justification', Tms),
-      rdfs_assert_label(J, Label,	 Tms),
+      rdfs_assert_label(J, Label,   Tms),
       
       % Add the new justification to the node's justification-set.
       add_justification(Tms, Consequence, J),
