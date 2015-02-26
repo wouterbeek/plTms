@@ -23,18 +23,17 @@ Support for printing (aspects of) a TMS.
 :- use_module(library(option)).
 :- use_module(library(semweb/rdf_db), except([rdf_node/1])).
 
-:- use_module(generics(option_ext)).
-
-:- use_module(plDcg(dcg_abnf)).
-:- use_module(plDcg(dcg_ascii)).
-:- use_module(plDcg(dcg_atom)).
-:- use_module(plDcg(dcg_bracket)).
-:- use_module(plDcg(dcg_content)).
-:- use_module(plDcg(dcg_generics)).
-
-:- use_module(plTms(tms)).
+:- use_module(plc(dcg/dcg_abnf)).
+:- use_module(plc(dcg/dcg_ascii)).
+:- use_module(plc(dcg/dcg_atom)).
+:- use_module(plc(dcg/dcg_bracket)).
+:- use_module(plc(dcg/dcg_content)).
+:- use_module(plc(dcg/dcg_generics)).
+:- use_module(plc(generics/option_ext)).
 
 :- use_module(plRdf(api/rdfs_read)).
+
+:- use_module(plTms(tms)).
 
 :- rdf_register_prefix(tms, 'http://www.wouterbeek.com/tms.owl#').
 
@@ -42,20 +41,22 @@ Support for printing (aspects of) a TMS.
 :- rdf_meta(tms_print_node(+,r,+,?,?)).
 
 :- predicate_options(tms_print_justification/3, 3, [
-     pass_to(tms_print_justification0/3, 3)
-   ]).
+  pass_to(tms_print_justification0/3, 3)
+]).
 :- predicate_options(tms_print_justification0/3, 3, [
-     indent(+nonneg),
-     pass_to(tms_print_node/3, 3)
-   ]).
+  indent(+nonneg),
+  pass_to(tms_print_node/3, 3)
+]).
 :- predicate_options(tms_print_node/3, 3, [
-     pass_to(tms_print_justification0/3, 3),
-     pass_to(tms_print_node0/2, 2)
-   ]).
+  pass_to(tms_print_justification0/3, 3),
+  pass_to(tms_print_node0/2, 2)
+]).
 :- predicate_options(tms_print_node0/2, 2, [
-     indent(+nonneg),
-     language_preferences(+list(atom))
-   ]).
+  indent(+nonneg),
+  language_preferences(+list(atom))
+]).
+
+
 
 
 

@@ -2,20 +2,19 @@
 
 :- dynamic(user:project/2).
 :- multifile(user:project/2).
-   user:project(plTms, 'Truth Maintenance Systems implemented in Prolog.').
+user:project(plTms, 'Truth Maintenance Systems implemented in Prolog.').
 
 :- use_module(load_project).
 :- load_project([
-     plc-'Prolog-Library-Collection',
-     plDcg,
-     plGraph,
-     plHttp,
-     plLangTag,
-     plRdf,
-     plSet,
-     plTree,
-     plUri,
-     plXml,
-     plXsd
+  plc-'Prolog-Library-Collection',
+  plGraph,
+  plHttp,
+  plLangTag,
+  plRdf,
+  plSet,
+  plTree,
+  plUri,
+  plXml,
+  plXsd
 ]).
 

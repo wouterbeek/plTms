@@ -1,7 +1,6 @@
 % Debug file for library plTms.
 
-:- style_check(+charset).
-%:- style_check(+var_branches).
+:- use_module(library(debug)).
 
 :- [load].
 

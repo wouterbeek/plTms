@@ -56,8 +56,8 @@ The generic predicates for Truth-Maintenance Systems.
 :- use_module(library(semweb/rdf_db), except([rdf_node/1])).
 :- use_module(library(semweb/rdfs)).
 
-:- use_module(generics(db_ext)).
-:- use_module(generics(meta_ext)).
+:- use_module(plc(generics/db_ext)).
+:- use_module(plc(generics/meta_ext)).
 
 :- use_module(plUri(uri_query)).
 
@@ -75,6 +75,8 @@ The generic predicates for Truth-Maintenance Systems.
 :- rdf_meta(tms_create_justification_iri(+,+,+,r,-)).
 :- rdf_meta(tms_justification(?,r)).
 :- rdf_meta(tms_justification(?,?,?,r,r)).
+
+
 
 
 

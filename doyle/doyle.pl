@@ -142,9 +142,8 @@ Only SL-justifications can be well-founded justifications.
 :- use_module(library(semweb/rdf_db), except([rdf_node/1])).
 :- use_module(library(semweb/rdfs)).
 
-:- use_module(pl(pl_control)).
-
-:- use_module(plDcg(dcg_generics)).
+:- use_module(plc(dcg/dcg_generics)).
+:- use_module(plc(prolog/pl_control)).
 
 :- use_module(plSet(set_theory)).
 
