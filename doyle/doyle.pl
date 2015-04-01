@@ -140,7 +140,7 @@ Only SL-justifications can be well-founded justifications.
 :- use_module(library(apply)).
 :- use_module(library(lists), except([delete/3,subset/2])).
 :- use_module(library(semweb/rdf_db), except([rdf_node/1])).
-:- use_module(library(semweb/rdfs)).
+:- use_module(library(semweb/rdfs), except([rdfs_label/3])).
 
 :- use_module(plc(dcg/dcg_generics)).
 :- use_module(plc(prolog/pl_control)).
